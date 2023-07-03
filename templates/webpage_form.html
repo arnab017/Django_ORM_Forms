@@ -41,7 +41,8 @@
         form:hover{
             box-shadow: 10px 39px 60px black;
         }
-        input[type='text']{
+        input[type='text'],
+        select{
             border-radius: 30px;
             border: none;
             width: 200px;
@@ -75,10 +76,12 @@
             outline: none;
         }
         input[type="text"],
-        input[type="submit"]{
+        input[type="submit"],
+        select{
             transition: .5s;
         }
-        input[type="text"]:hover{
+        input[type="text"]:hover,
+        select:hover{
             box-shadow: -10px 10px 20px black;
         }
         input[type="submit"]:hover{
@@ -96,7 +99,13 @@
         <table>
             <tr>
                 <td><label for="tp">input Topic Name</label></td>
-                <td><input type="text" id="tp" name="tp"></td>
+                <td>
+                    <select name="tp" id="tp">
+                        {% for to in topics %}
+                            <option value="{{to}}">{{to.topic_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td><label for="na">Input Webpage Name</label></td>

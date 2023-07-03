@@ -100,11 +100,10 @@
         <table>
             <tr>
                 <td><label for="na">input Name</label></td>
-                <!-- <td><input type="text" id="na" name="na"></td> -->
                 <td>
                     <select name="na" id="na">
                         {% for wo in webpages %}
-                            <option value="{{wo.name}}">{{ wo.name }}</option>
+                            <option value="{{wo}}">{{wo.name}}</option>
                         {% endfor %}
                       </select>
                 </td>

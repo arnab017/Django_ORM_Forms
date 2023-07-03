@@ -53,22 +53,20 @@ def topic_form(request):
     return render(request,'topic_form.html')
 
 def webpage_form(request):
+    topics = Topic.objects.all()
+    d = {'topics': topics}
     if request.method == 'POST':
         topic = request.POST['tp']
         name = request.POST['na']
         url = request.POST['ur']
         
-        TO = Topic.objects.get_or_create(topic_name=topic)[0]
+        TO = Topic.objects.get(topic_name=topic)
         TO.save()
         WO = Webpage.objects.get_or_create(topic_name=TO,name=name,url=url)[0]
         WO.save()
-        
-        print(topic)
-        print(name)
-        print(url)
-        
+
         return HttpResponse('<center><h3>Webpage Successfully inserted</h3></center>')
-    return render(request,'webpage_form.html')
+    return render(request,'webpage_form.html',d)
 
 def ar_form(request):
     webpages = Webpage.objects.all()
@@ -79,19 +77,11 @@ def ar_form(request):
         name = request.POST['na']
         date = request.POST['da']
         author = request.POST['au']
-        
-        webpages = Webpage.objects.filter(name=name)
-        
-        TO = Topic.objects.get_or_create(topic_name=(webpages[0].topic_name))[0]
-        TO.save()
-        WO = Webpage.objects.get_or_create(topic_name=TO,name=name,url=(webpages[0].url))[0]
+
+        WO = Webpage.objects.get(name=name)
         WO.save()
         AO = AccessRecord.objects.get_or_create(name=WO,date=date,author=author)[0]
         AO.save()
-        
-        print(name)
-        print(date)
-        print(author)
         
         return HttpResponse('<center><h3>AccessRecord Successfully inserted</h3></center>')
     return render(request,'ar_form.html',d)
